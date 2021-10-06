@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, forwardRef } from 'react'
 
 import { IconContext } from 'react-icons'
 import { FaReact } from 'react-icons/fa'
@@ -9,9 +9,21 @@ import 'react-toastify/dist/ReactToastify.css'
 
 import Modal from 'react-modal'
 
+import Tippy from '@tippy.js/react'
+import 'tippy.js/dist/tippy.css'
+
 import './App.css'
 
 toast.configure()
+
+const ChildrenTooltip = forwardRef((props, ref) => {
+  return (
+    <div ref={ref}>
+      <h2>Tooltip title</h2>
+      <p>Tooltip content</p>
+    </div>
+  )
+})
 
 const CustomToast = ({ closeToast }) => (
   <>
@@ -58,6 +70,19 @@ function App() {
           <button onClick={() => setModalIsOpen(false)}>Close</button>
         </div>
       </Modal>
+
+      <Tippy
+        content={<CustomToast />}
+        arrow={false}
+        delay={500}
+        placement='right'
+      >
+        <button>Hover</button>
+      </Tippy>
+
+      <Tippy content={<CustomToast />}>
+        <ChildrenTooltip />
+      </Tippy>
     </>
   )
 }
