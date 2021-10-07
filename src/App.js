@@ -12,6 +12,8 @@ import Modal from 'react-modal'
 import Tippy from '@tippy.js/react'
 import 'tippy.js/dist/tippy.css'
 
+import CountUp, { useCountUp } from 'react-countup'
+
 import './App.css'
 
 toast.configure()
@@ -36,6 +38,11 @@ Modal.setAppElement('#root')
 
 function App() {
   const [modalIsOpen, setModalIsOpen] = useState(false)
+  const { countUp, start, pauseResume, reset, update } = useCountUp({
+    duration: 5,
+    end: 10000,
+    startOnMount: false,
+  })
 
   const notify = () => {
     toast('Notification!!!', {
@@ -83,6 +90,15 @@ function App() {
       <Tippy content={<CustomToast />}>
         <ChildrenTooltip />
       </Tippy>
+
+      <div>
+        <h5>{countUp}</h5>
+        <button onClick={start}>Start</button>
+        <button onClick={reset}>Reset</button>
+        <button onClick={pauseResume}>Pause</button>
+        <button onClick={() => update(2000)}>Update to 2000</button>
+      </div>
+      <CountUp start={500} end={1000} duration={5} prefix='$' decimals={2} />
     </>
   )
 }
