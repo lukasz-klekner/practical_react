@@ -15,6 +15,7 @@ import 'tippy.js/dist/tippy.css'
 import CountUp, { useCountUp } from 'react-countup'
 
 import './App.css'
+import IdleTimerContainer from './components/IdleTimerContainer'
 
 toast.configure()
 
@@ -99,6 +100,8 @@ function App() {
         <button onClick={() => update(2000)}>Update to 2000</button>
       </div>
       <CountUp start={500} end={1000} duration={5} prefix='$' decimals={2} />
+
+      <IdleTimerContainer></IdleTimerContainer>
     </>
   )
 }
