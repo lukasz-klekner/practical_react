@@ -22,6 +22,9 @@ import { ChromePicker } from 'react-color'
 import Cards from 'react-credit-cards'
 import 'react-credit-cards/es/styles-compiled.css'
 
+import DatePicker from 'react-datepicker'
+import 'react-datepicker/dist/react-datepicker.css'
+
 toast.configure()
 
 const ChildrenTooltip = forwardRef((props, ref) => {
@@ -52,6 +55,8 @@ function App() {
   const [expiry, setExpiry] = useState('')
   const [cvc, setCvc] = useState('')
   const [focus, setFocus] = useState('')
+
+  const [selectedDate, setSelectedDate] = useState(null)
 
   const { countUp, start, pauseResume, reset, update } = useCountUp({
     duration: 5,
@@ -173,6 +178,17 @@ function App() {
           onFocus={(e) => setFocus(e.target.name)}
         />
       </form>
+
+      <DatePicker
+        selected={selectedDate}
+        onChange={(date) => setSelectedDate(date)}
+        dateFormat='dd/MM/yyyy'
+        minDate={new Date()}
+        filterDate={(date) => date.getDay() !== 6 && date.getDay() !== 0}
+        isClearable
+        showYearDropdown
+        scrollableYearDropdown
+      />
     </>
   )
 }
