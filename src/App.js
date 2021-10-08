@@ -17,6 +17,8 @@ import CountUp, { useCountUp } from 'react-countup'
 import './App.css'
 import IdleTimerContainer from './components/IdleTimerContainer'
 
+import { ChromePicker } from 'react-color'
+
 toast.configure()
 
 const ChildrenTooltip = forwardRef((props, ref) => {
@@ -39,6 +41,9 @@ Modal.setAppElement('#root')
 
 function App() {
   const [modalIsOpen, setModalIsOpen] = useState(false)
+  const [showColorPicker, setShowColorPicker] = useState(false)
+  const [color, setColor] = useState('#fff')
+
   const { countUp, start, pauseResume, reset, update } = useCountUp({
     duration: 5,
     end: 10000,
@@ -102,6 +107,21 @@ function App() {
       <CountUp start={500} end={1000} duration={5} prefix='$' decimals={2} />
 
       <IdleTimerContainer></IdleTimerContainer>
+
+      <button
+        onClick={() =>
+          setShowColorPicker((showColorPicker) => !showColorPicker)
+        }
+      >
+        {showColorPicker ? 'Close color picker' : 'Pick a color'}
+      </button>
+      {showColorPicker && (
+        <ChromePicker
+          color={color}
+          onChange={(updatedColor) => setColor(updatedColor.hex)}
+        />
+      )}
+      <h2>You picked {color}</h2>
     </>
   )
 }
